@@ -85,7 +85,7 @@ def delete_transaction(transaction_id):
     return redirect(url_for("get_transactions"))
 
 
-#search feilds
+# Search functionality
 @app.route("/search", methods=["GET", "POST"])
 def search_transactions():
     if request.method == "POST":
@@ -102,6 +102,15 @@ def search_transactions():
     # If the request method is GET
     return render_template("search.html")
 
+
+# Total balance feature
+@app.route("/balance")
+def total_balance():
+    total_amt = 0
+    for transaction in transactions:
+        total_amt += transaction['amount']
+
+    return render_template("transactions.html", transactions=transactions, total_amount=total_amt)
 
 
 # Run the Flask app
